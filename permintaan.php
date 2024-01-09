@@ -8,7 +8,6 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -67,6 +66,9 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                     <span>Permintaan</span>
                 </a>
             </li>
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="pelacakan.php">
                     <img src="img/lacak.png" alt="">
@@ -74,6 +76,9 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                     <span>Melacak Pesanan</span>
                 </a>
             </li>
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="pesanan.php">
                     <img src="img/pesanan.png" alt="">
@@ -81,6 +86,8 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                     <span>Pesanan</span>
                 </a>
             </li>
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="riwayat.php">
                     <img src="img/riwayat.png" alt="">
@@ -88,6 +95,8 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                     <span>Riwayat</span>
                 </a>
             </li>
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="total_poin.php">
                     <!-- <i class="fas fa-fw fa-chart-area"></i> -->
@@ -95,6 +104,8 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                     <span>Total Sampah dan Poin</span>
                 </a>
             </li>
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -155,7 +166,7 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <p class="text-white">Cari No Resi Permintaan</p>
+                                            <p class="text-white">Cari Nama Customer </p>
                                             <form action="">
                                                 <div class="input-group">
                                                     <div class="form-floating">
@@ -167,25 +178,37 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="text-white">Filter tanggal</p>
-                                            <form action="">
-                                                <select class="form-select" aria-label="Default select example">
+                                            <form action="" method="GET">
+                                                <select class="form-select" aria-label="Default select example" name="tanggal">
                                                     <option selected>Filter</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <?php                                                   
+                                                    $result2 = query("SELECT DISTINCT tanggal_penjemputan FROM penjemputan");
+
+                                                    foreach ($result2 as $row) {
+                                                        $tanggal = $row['tanggal_penjemputan'];
+                                                        echo "<option value='$tanggal'>$tanggal</option>";
+                                                    }
+                                                    ?>
                                                 </select>
-                                            </form>
+                                                <input type="submit" value="Filter">
+                                                </form>
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="text-white">Filter lokasi</p>
-                                            <form action="">
-                                                <select class="form-select" aria-label="Default select example">
+                                            <form action="" method="GET">
+                                                <select class="form-select" aria-label="Default select example" name="alamat">
                                                     <option selected>Filter</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <?php                                                   
+                                                    $result3 = query("SELECT DISTINCT alamat FROM penjemputan pj JOIN masyarakat m ON pj.id_masyarakat = m.id_masyarakat ");
+
+                                                    foreach ($result3 as $row1) {
+                                                        $alamat = $row1['alamat'];
+                                                        echo "<option value='$alamat'>$alamat</option>";
+                                                    }
+                                                    ?>
                                                 </select>
-                                            </form>
+                                                <input type="submit" value="Filter">
+                                                </form>
                                         </div>
                                     </div>
                                 </div>
@@ -208,25 +231,102 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i=1; foreach ($penjemputan as $pj) : ?> 
-                                            <tr>
-                                                <td><?=  $i; ?></td>
-                                                <td><?= $pj["nama"]; ?></td>
-                                                <td><?= $pj["tanggal_penjemputan"]; ?></td>
-                                                <td><?= $pj["alamat"]; ?></td>
-                                                <td><?= $pj["status"]; ?></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="bi bi-eye"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <!-- modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <?php
+                                            if (isset($_GET['tanggal']) && $_GET['tanggal'] !== 'Filter' && isset($_GET['alamat']) && $_GET['alamat'] !== 'Filter') {
+                                                $tanggal = $_GET['tanggal'];
+                                                $alamat = $_GET['alamat'];
+
+                                                $filteredData = query("SELECT * FROM penjemputan pj 
+                                                JOIN masyarakat m ON pj.id_masyarakat = m.id_masyarakat 
+                                                JOIN kurir k ON pj.id_kurir = k.id_kurir 
+                                                JOIN sampah s ON pj.id_sampah = s.id_sampah  
+                                                WHERE tanggal_penjemputan = '$tanggal' AND alamat = '$alamat'");
+                                    $j=1; foreach ($filteredData as $fd) {
+                                    ?>
+                                <tr>
+                                    <td><?= $j; ?></td>
+                                    <td><?= $fd["nama"]; ?></td>
+                                    <td><?= $fd["tanggal_penjemputan"]; ?></td>
+                                    <td><?= $fd["alamat"]; ?></td>
+                                    <td><?= $fd["status"]; ?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $j; ?>">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                 <!-- modal -->
+                                 <div class="modal fade" id="exampleModal<?= $j; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?= $j; ?>" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h1 class="modal-title fs-5" id="exampleModalLabel">JP-0123452</h1>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card mb-3" style="max-width: 540px; background-color: #0174BE;">
+                                                            <div class="row g-0">
+                                                                <div class="col-md-4 d-flex align-items-center">
+                                                                    <img src="img/man.png" class="img-fluid" alt="User Image" style="margin: 0 auto;">
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                <div class="card-body">
+                                                                        <h5 class="card-text text-white"><?= $fd["nama"]; ?></h5>
+                                                                        <p class="card-text text-white"><?= $fd["alamat"]; ?></p>
+                                                                        <p class="card-text text-white"><?= $fd["no_telp"]; ?></p>
+                                                                    </div>         
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <h5>Detail Informasi Sampah</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <img src="img/laptop.png" alt="">
+                                                            </div>
+                                                            <div class="col-md-3 justify-content-center">
+                                                                <p><?= $fd["nama_sampah"]; ?></p>
+                                                                <p><?= $fd["jenis_sampah"]; ?></p>
+                                                            </div>
+                                                            <p class="text-center">__________________________________________________________________</p>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <img src="img/laptop.png" alt="">
+                                                            </div>
+                                                            <div class="col-md-3 justify-content-center">
+                                                                <p><?= $fd["nama_sampah"]; ?></p>
+                                                                <p><?= $fd["jenis_sampah"]; ?></p>
+                                                            </div>
+                                                            <p class="text-center">__________________________________________________________________</p>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                <?php
+                                $j++;
+                            }
+                            
+                        } else {
+                           
+                            $i=1; foreach ($penjemputan as $pj) {
+                                ?>
+                                <tr>
+                                    <td><?= $i; ?></td>
+                                    <td><?= $pj["nama"]; ?></td>
+                                    <td><?= $pj["tanggal_penjemputan"]; ?></td>
+                                    <td><?= $pj["alamat"]; ?></td>
+                                    <td><?= $pj["status"]; ?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $i; ?>">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                      <!-- modal -->
+                                            <div class="modal fade" id="exampleModal<?= $i; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?= $i; ?>" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
@@ -269,9 +369,13 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                                   </div>
                                                 </div>
                                             </div>
+                                            <?php
+                                $i++;
+                            }
+                        }
+                        ?>
                                         </tbody>
-                                        <?php $i++ ?>
-                                            <?php endforeach; ?>
+                                     
                                     </table>
                                 </div>
                             </div>

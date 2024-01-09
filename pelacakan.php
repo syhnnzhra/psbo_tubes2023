@@ -138,12 +138,12 @@
                 <div class="container-fluid">
 
                     <div class="d-sm-flex align-items-center justify-content-center mb-4">
-                        <h1 class="h3 mb-0 text-gray-800 text-center">Permintaan Penjemputan</h1>
+                        <h1 class="h3 mb-0 text-gray-800 text-center">Pelacakan Penjemputan</h1>
                     </div>
 
                     <div class="row">
                         <div class="col-xl-6 col-md-6 mb-4">
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <!-- <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-center">
@@ -159,10 +159,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </button>
+                            <!-- </button> -->
                         </div>
                         <div class="col-xl-6 col-md-6 mb-4">
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <!-- <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-center">
@@ -178,7 +178,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </button>
+                            <!-- </button> -->
                         </div>
                     </div>
                     <!-- Modal -->

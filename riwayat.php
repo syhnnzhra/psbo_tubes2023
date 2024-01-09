@@ -68,6 +68,10 @@ JOIN kurir k ON r.id_kurir= k.id_kurir JOIN sampah s ON r.id_sampah= s.id_sampah
                     <span>Permintaan</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="pelacakan.php">
                     <img src="img/lacak.png" alt="">
@@ -75,6 +79,10 @@ JOIN kurir k ON r.id_kurir= k.id_kurir JOIN sampah s ON r.id_sampah= s.id_sampah
                     <span>Melacak Pesanan</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="pesanan.php">
                     <img src="img/pesanan.png" alt="">
@@ -82,6 +90,10 @@ JOIN kurir k ON r.id_kurir= k.id_kurir JOIN sampah s ON r.id_sampah= s.id_sampah
                     <span>Pesanan</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item active">
                 <a class="nav-link" href="riwayat.php">
                     <img src="img/riwayat.png" alt="">
@@ -89,6 +101,10 @@ JOIN kurir k ON r.id_kurir= k.id_kurir JOIN sampah s ON r.id_sampah= s.id_sampah
                     <span>Riwayat</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="total_poin.php">
                     <!-- <i class="fas fa-fw fa-chart-area"></i> -->
@@ -96,6 +112,10 @@ JOIN kurir k ON r.id_kurir= k.id_kurir JOIN sampah s ON r.id_sampah= s.id_sampah
                     <span>Total Sampah dan Poin</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+             
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -237,13 +257,13 @@ JOIN kurir k ON r.id_kurir= k.id_kurir JOIN sampah s ON r.id_sampah= s.id_sampah
                                                 <td><?= $r["alamat"]; ?></td>
                                                 <td><?= $r["total_sampah"]; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="bi bi-eye"></i>
-                                                    </button>
+                                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $i; ?>">
+                                                    <i class="bi bi-eye"></i>
+                                                 </button>
                                                 </td>
                                             </tr>
                                             <!-- modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModal<?= $i; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?= $i; ?>" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                   <div class="modal-content">
                                                     <div class="modal-header">

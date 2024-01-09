@@ -167,14 +167,20 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="text-white">Filter tanggal</p>
-                                            <form action="">
-                                                <select class="form-select" aria-label="Default select example">
+                                            <form action="" method="GET">
+                                                <select class="form-select" aria-label="Default select example" name="tanggal">
                                                     <option selected>Filter</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <?php                                                   
+                                                    $result4 = query("SELECT DISTINCT tanggal_penjemputan FROM penjemputan");
+
+                                                    foreach ($result4 as $rw) {
+                                                        $tanggal1 = $rw['tanggal_penjemputan'];
+                                                        echo "<option value='$tanggal1'>$tanggal1</option>";
+                                                    }
+                                                    ?>
                                                 </select>
-                                            </form>
+                                                <input type="submit" value="Filter">
+                                                </form>
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="text-white">Filter lokasi</p>
@@ -217,24 +223,40 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                                 <td><?= $pj["tanggal_penjemputan"]; ?></td>
                                                 <td><?= $pj["lokasi"]; ?></td>
                                                 <td><?= $pj["alamat"]; ?></td>
-                                                <td><?= $pj["estimasi_waktu"]; ?></td>
+                                                <td><?php $estimasi_waktu = date("i", strtotime($pj["estimasi_waktu"])); echo $estimasi_waktu . " menit"; ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                        <i class="bi bi-eye"></i>
-                                                    </button>
+                                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $i; ?>">
+                                                    <i class="bi bi-eye"></i>
+                                                 </button>
                                                 </td>
                                             </tr>
                                             <!-- modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModal<?= $i; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?= $i; ?>" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h1 class="modal-title fs-5" id="exampleModalLabel">JP-0123452</h1>
                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+                                                    <h5>Detail Informasi Kurir</h5>
                                                         <div class="card mb-3" style="max-width: 540px; background-color: #0174BE;">
                                                             <div class="row g-0">
+                                                                <div class="col-md-4 d-flex align-items-center">
+                                                                    <img src="img/man.png" class="img-fluid" alt="User Image" style="margin: 0 auto;">
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                <div class="card-body">
+                                                                        <h5 class="card-text text-white"><?= $pj["nama_kurir"]; ?></h5>
+                                                                        <p class="card-text text-white"><?= $pj["lokasi"]; ?></p>
+                                                                    </div>         
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <h5>Detail Informasi Customer</h5>
+                                                        <div class="card mb-3" style="max-width: 540px; background-color: #0174BE;">
+                                                     
+                                                                <div class="row g-0">
+                                                            
                                                                 <div class="col-md-4 d-flex align-items-center">
                                                                     <img src="img/man.png" class="img-fluid" alt="User Image" style="margin: 0 auto;">
                                                                 </div>
@@ -246,27 +268,6 @@ JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_samp
                                                                     </div>         
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <h5>Detail Informasi Sampah</h5>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <img src="img/laptop.png" alt="">
-                                                            </div>
-                                                            <div class="col-md-3 justify-content-center">
-                                                                <p><?= $pj["nama_sampah"]; ?></p>
-                                                                <p><?= $pj["jenis_sampah"]; ?></p>
-                                                            </div>
-                                                            <p class="text-center">__________________________________________________________________</p>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <img src="img/laptop.png" alt="">
-                                                            </div>
-                                                            <div class="col-md-3 justify-content-center">
-                                                                <p><?= $pj["nama_sampah"]; ?></p>
-                                                                <p><?= $pj["jenis_sampah"]; ?></p>
-                                                            </div>
-                                                            <p class="text-center">__________________________________________________________________</p>
                                                         </div>
                                                     </div>
                                                   </div>

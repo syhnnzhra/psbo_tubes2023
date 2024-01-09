@@ -1,3 +1,17 @@
+<?php 
+require 'functions.php';
+
+$penjemputan = query("SELECT * FROM penjemputan pj JOIN masyarakat m ON pj.id_masyarakat = m.id_masyarakat 
+JOIN kurir k ON pj.id_kurir= k.id_kurir JOIN sampah s ON pj.id_sampah= s.id_sampah "); 
+
+$result = query("SELECT SUM(total_sampah) as total FROM sampah");  
+$totalSampah = $result[0]['total']; 
+
+$result1 = query("SELECT SUM(poin_masyarakat) as totalPoin FROM masyarakat");  
+$totalpoincust = $result1[0]['totalPoin']; 
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +53,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <img src="img/dashboard.png" alt="">
                     <span>Dashboard</span></a>
@@ -55,6 +69,10 @@
                     <span>Permintaan</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="pesanan.php">
                     <img src="img/lacak.png" alt="">
@@ -62,6 +80,10 @@
                     <span>Melacak Pesanan</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="pesanan.php">
                     <img src="img/pesanan.png" alt="">
@@ -69,6 +91,10 @@
                     <span>Pesanan</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="riwayat.php">
                     <img src="img/riwayat.png" alt="">
@@ -76,6 +102,10 @@
                     <span>Riwayat</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
             <li class="nav-item">
                 <a class="nav-link" href="total_poin.php">
                     <!-- <i class="fas fa-fw fa-chart-area"></i> -->
@@ -83,7 +113,12 @@
                     <span>Total Sampah dan Poin</span>
                 </a>
             </li>
+
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
         </ul>
+
 
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -142,7 +177,9 @@
                     </div>
 
                     <div class="row">
-
+                    <?php
+                    $totalCustomer = count($penjemputan);
+                     ?>
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card shadow h-100 py-2" style="background-color: #FFC436;">
                                 <div class="card-body">
@@ -150,7 +187,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-dark text-uppercase text-center mb-1">
                                                 Total Customer</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">1.500</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= $totalCustomer; ?></div>
                                         </div>
                                         <!-- <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -159,7 +196,9 @@
                                 </div>
                             </div>
                         </div>
-
+                        <?php
+                        $totalKurir = count($penjemputan);
+                        ?>
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card shadow h-100 py-2" style="background-color: #FFC436;">
                                 <div class="card-body">
@@ -167,7 +206,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-dark text-uppercase text-center mb-1">
                                                 Total Kurir</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">1.000</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= $totalKurir; ?></div>
                                         </div>
                                         <!-- <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -176,7 +215,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card shadow h-100 py-2" style="background-color: #FFC436;">
                                 <div class="card-body">
@@ -184,7 +222,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-dark text-uppercase text-center mb-1">Total Sampah
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">4.000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= $totalSampah; ?></div>
                                         </div>
                                         <!-- <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -193,6 +231,7 @@
                                 </div>
                             </div>
                         </div>
+                       
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card shadow h-100 py-2" style="background-color: #FFC436;">
@@ -201,7 +240,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-dark text-uppercase text-center mb-1">
                                                 Total Poin</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">6.000</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?=  $totalpoincust; ?></div>
                                         </div>
                                         <!-- <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
